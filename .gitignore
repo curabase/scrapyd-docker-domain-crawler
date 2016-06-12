@@ -1,0 +1,7 @@
+.scrapy/
+*.pyc
+__pycache__/
+*.swp
+build/
+crawler/lib/
+venv/
