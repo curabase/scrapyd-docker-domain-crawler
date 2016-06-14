@@ -13,13 +13,16 @@ import lxml.html
 class DomainSpider(CrawlSpider):
     name = "domain_spider"
 
-    def __init__(self, url=None, allowed=None, es_server='http://elasticsearch:9200', es_index='crawl_index', **kwargs):
+    def __init__(self, url=None, allowed=None, denied=None, single_page=False, **kwargs):
+
+        if single_page is not False:
+            denied = '.*'
 
         self.start_urls = ['{}'.format(url)]
         self.allowed_domains = [urlparse(url).netloc]
         self.domain = urlparse(url).netloc
         self.rules = (
-            Rule( LinkExtractor(allow=(allowed), unique=True, ), follow=True, callback='parse_page' ),
+            Rule( LinkExtractor(allow=(allowed), deny=(denied), unique=True, ), callback='parse_page' ),
         )
         super(DomainSpider, self).__init__(**kwargs)
 
@@ -31,6 +34,9 @@ class DomainSpider(CrawlSpider):
         lxml.etree.strip_elements(root, lxml.etree.Comment, "script", "head","style")
         tmpstr = lxml.html.tostring(root, method="text", encoding='unicode')
         return ' '.join(tmpstr.split())
+
+    def parse_start_url(self, response):
+        return self.parse_page(response)
 
     def parse_page(self, response):
         i = CrawlerItem()
