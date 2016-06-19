@@ -9,6 +9,8 @@ from urllib.parse import urlparse
 import lxml.etree
 import lxml.html
 
+import os
+import hashlib
 
 class DomainSpider(CrawlSpider):
     name = "domain_spider"
@@ -24,6 +26,7 @@ class DomainSpider(CrawlSpider):
         self.rules = (
             Rule( LinkExtractor(allow=(allowed), deny=(denied), unique=True, ), callback='parse_page' ),
         )
+
         super(DomainSpider, self).__init__(**kwargs)
 
 
@@ -44,6 +47,8 @@ class DomainSpider(CrawlSpider):
         i['title'] = ''.join(response.css('title::text').extract())
         i['description'] = ''.join(response.css('meta[name="description"]::attr("content")').extract())
         i['body'] = self.strip_html(response.body)
+        i['h1'] = ' '.join(response.css('h1::text').extract()).strip()
+        i['h2'] = ' '.join(response.css('h2::text').extract()).strip()
         i['url'] = response.url
 
         return i
