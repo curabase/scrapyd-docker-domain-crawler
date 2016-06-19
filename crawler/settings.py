@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 
 # Scrapy settings for crawler project
 #
@@ -19,7 +20,7 @@ NEWSPIDER_MODULE = 'crawler.spiders'
 #USER_AGENT = 'crawler (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -71,7 +72,7 @@ ITEM_PIPELINES = {
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
-AUTOTHROTTLE_ENABLED = False
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -90,13 +91,8 @@ HTTPCACHE_DIR = 'httpcache'
 HTTPCACHE_IGNORE_HTTP_CODES = []
 HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-#ELASTICSEARCH_TYPE='crawl_data'
-#ELASTICSEARCH_UNIQ_KEY='url'
-
 FEED_FORMAT='jsonlines'
 
 FEED_STORAGES = {
     'azure': 'scrapy_feedexporter_azure_blob.AzureBlobFeedStorage',
-    # 'azure': 'boom.AzureBlobFeedStorage',
 }
-FEED_URI='azure://accountname/container'
