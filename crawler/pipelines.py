@@ -28,7 +28,7 @@ class PushToSolrPipeline(object):
             'title': item['title']
         }])
         
-        solr_url = 'http://solr/solr/defaultcore/update?commit=true'
+        solr_url = 'http://solr:8983/solr/defaultcore/update?commit=true'
         r = requests.post(solr_url, headers=headers, data=data)
 
         return item
