@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.git/
+.scrapy/
+idea/
+__pycache__/
+build/
+project.egg-info/
+venv/
+venvp2/
+worker.py
+crawler/lib/
+Dockerfile

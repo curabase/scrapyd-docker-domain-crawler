@@ -1,1 +1,2 @@
+-r base.txt
 -e git+git@github.com:undernewmanagement/scrapy-feedexporter-azure-blob.git@c89cff4f3e25fbdac1f8c508ee671e1befecc883#egg=scrapy_feedexporter_azure_blob-master

@@ -4,7 +4,7 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 from crawler.items import CrawlerItem
-from urllib.parse import urlparse
+from urlparse import urlparse
 
 import lxml.etree
 import lxml.html
@@ -52,3 +52,9 @@ class DomainSpider(CrawlSpider):
         i['url'] = response.url
 
         return i
+
+    # def closed(self, reason):
+    #     pass
+        # todo: push message onto azure queue (solrqueue)
+        # do in try/catch
+        # but will this fire after the upload is completed?

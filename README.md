@@ -18,3 +18,9 @@ this case, we also use azure's Blob storage.
 
 the format for that url is: `azure://account_name_:password@container/`
 
+calling from the command line:
+
+if using curl, you will need to replace `+` chars wtih `%2B`, otherwise it 
+gets eaten and turned into a ` ` (space).
+
+curl -XPOST http://localhost:6800/schedule.json -d  project=crawler -d spider=domain_spider -d url=http://www.m3b.net -d setting=FEED_URI='azure://accountname:queXX59YrwTbm1KUj0lK1gXHv4NHrCfKxfxHy3bwQJ%2BLqFHCay6r1S/Yhw2Ot4Tk6p1zFakfjdaskfjnaksZgA==@sites/m3b.net/hahaha123000.jsonl'

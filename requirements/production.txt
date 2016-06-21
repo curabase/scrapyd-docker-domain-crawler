@@ -1,1 +1,2 @@
-scrapy-feedexporter-azure-blob==0.1
+-r base.txt
+scrapy-feedexporter-azure-blob==0.2

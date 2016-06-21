@@ -7,3 +7,8 @@ crawler/lib/
 venv/
 .env
 .idea/
+venvp2/
+boom/
+project.egg-info/
+dbs/
+setup.py
