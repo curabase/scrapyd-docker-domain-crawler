@@ -17,4 +17,4 @@ RUN ["python", "setup.py", "clean", "-a", "bdist_egg", "-d", "boom"]
 RUN chmod +x /usr/src/app/deploy.sh
 RUN /usr/src/app/deploy.sh
 
-ENTRYPOINT ["scrapyd"]
+CMD ["scrapyd"]
