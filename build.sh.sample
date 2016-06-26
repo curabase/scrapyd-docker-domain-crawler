@@ -1,0 +1,5 @@
+docker build -t domain_crawler .
+docker tag domain_crawler docker.m3b.net:5000/domain_crawler
+#docker tag domain_crawler localhost:5000/domain_crawler
+docker push docker.m3b.net:5000/domain_crawler
+#docker push localhost:5000/domain_crawler

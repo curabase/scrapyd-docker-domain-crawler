@@ -12,3 +12,4 @@ boom/
 project.egg-info/
 dbs/
 setup.py
+build.sh
