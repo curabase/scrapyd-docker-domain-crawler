@@ -1,2 +1,2 @@
 -r base.txt
--e git+git@github.com:undernewmanagement/scrapy-feedexporter-azure-blob.git@master#egg=scrapy_feedexporter_azure_blob-master
+-e git+git@github.com:curabase/scrapy-feedexporter-azure-blob.git@master#egg=scrapy_feedexporter_azure_blob-master
