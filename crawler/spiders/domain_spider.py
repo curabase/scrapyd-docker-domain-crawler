@@ -15,7 +15,9 @@ import hashlib
 class DomainSpider(CrawlSpider):
     name = "domain_spider"
 
-    def __init__(self, url=None, allowed=None, denied=None, single_page=False, **kwargs):
+    def __init__(self, url=None, category='default', allowed=None, denied=None, single_page=False, **kwargs):
+
+        self.category = category
 
         if single_page is not False:
             denied = '.*'
@@ -50,6 +52,7 @@ class DomainSpider(CrawlSpider):
         i['h1'] = ' '.join(response.css('h1::text').extract()).strip()
         i['h2'] = ' '.join(response.css('h2::text').extract()).strip()
         i['url'] = response.url
+        i['category'] = self.category
 
         return i
 

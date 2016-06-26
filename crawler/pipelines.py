@@ -25,10 +25,11 @@ class PushToSolrPipeline(object):
             'h2': item['h2'],
             'body': item['body'],
             'description': item['description'],
-            'title': item['title']
+            'title': item['title'],
+            'category': item['category']
         }])
-        
-        solr_url = 'http://solr:8983/solr/defaultcore/update?commit=true'
+
+        solr_url = 'http://{}:8983/solr/defaultcore/update?commit=true'.format(spider.settings.get('SOLR_HOST','solr'))
         r = requests.post(solr_url, headers=headers, data=data)
 
         return item

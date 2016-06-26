@@ -16,3 +16,4 @@ class CrawlerItem(scrapy.Item):
     h1 = scrapy.Field()
     h2 = scrapy.Field()
     url = scrapy.Field()
+    category= scrapy.Field()
