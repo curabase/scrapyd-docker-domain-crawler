@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 
 # Scrapy settings for crawler project
 #
@@ -95,3 +94,6 @@ FEED_FORMAT='jsonlines'
 FEED_STORAGES = {
     'azure': 'scrapy_feedexporter_azure_blob.AzureBlobFeedStorage',
 }
+
+LOG_STDOUT = True
+LOG_LEVEL = 'INFO'
