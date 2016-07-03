@@ -11,3 +11,4 @@ venvp2/
 worker.py
 crawler/lib/
 Dockerfile
+*.pyc
