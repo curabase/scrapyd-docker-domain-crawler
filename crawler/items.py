@@ -10,10 +10,11 @@ import scrapy
 
 class CrawlerItem(scrapy.Item):
     domain = scrapy.Field()
-    title  = scrapy.Field()
+    title = scrapy.Field()
     description = scrapy.Field()
     body = scrapy.Field()
     h1 = scrapy.Field()
     h2 = scrapy.Field()
     url = scrapy.Field()
-    category= scrapy.Field()
+    categories = scrapy.Field()
+    batch_id = scrapy.Field()

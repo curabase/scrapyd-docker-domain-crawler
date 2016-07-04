@@ -9,24 +9,31 @@ from urlparse import urlparse
 import lxml.etree
 import lxml.html
 
-import os
-import hashlib
 
 class DomainSpider(CrawlSpider):
     name = "domain_spider"
 
-    def __init__(self, url=None, category='default', allowed=None, denied=None, single_page=False, **kwargs):
+    def __init__(self, url=None, batch_id=None, categories=['default'], allowed=None, denied=None, single_page=False, **kwargs):
 
-        self.category = category
+        self.categories = categories
+        self.batch_id = batch_id
+        follow = True
 
-        if single_page is not False:
+        if allowed == '':
+            allowed = None
+
+        if denied == '':
+            denied = None
+
+        if single_page is not False and single_page != '':
             denied = '.*'
+            follow = False
 
         self.start_urls = ['{}'.format(url)]
         self.allowed_domains = [urlparse(url).netloc]
         self.domain = urlparse(url).netloc
         self.rules = (
-            Rule( LinkExtractor(allow=(allowed), deny=(denied), unique=True, ), callback='parse_page' ),
+            Rule( LinkExtractor(allow=allowed, deny=denied, unique=True,), callback='parse_page', follow=follow),
         )
 
         super(DomainSpider, self).__init__(**kwargs)
@@ -52,7 +59,8 @@ class DomainSpider(CrawlSpider):
         i['h1'] = ' '.join(response.css('h1::text').extract()).strip()
         i['h2'] = ' '.join(response.css('h2::text').extract()).strip()
         i['url'] = response.url
-        i['category'] = self.category
+        i['categories'] = self.categories
+        i['batch_id'] = self.batch_id
 
         return i
 

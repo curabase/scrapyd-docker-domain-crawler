@@ -8,6 +8,7 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import os
 
 BOT_NAME = 'crawler'
 
@@ -66,6 +67,7 @@ ROBOTSTXT_OBEY = False
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     'crawler.pipelines.PushToSolrPipeline': 300,
+    'crawler.pipelines.PushToDjangoPipeline': 310,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -95,5 +97,8 @@ FEED_STORAGES = {
     'azure': 'scrapy_feedexporter_azure_blob.AzureBlobFeedStorage',
 }
 
-LOG_STDOUT = True
-LOG_LEVEL = 'INFO'
+# Making `LOG_STDOUT = True` is a known bug with the scrpyd folks, and it
+# affects deployment
+# https://github.com/scrapy/scrapy/issues/1646
+LOG_STDOUT = False
+LOG_LEVEL = os.getenv('DEBUG', True)
