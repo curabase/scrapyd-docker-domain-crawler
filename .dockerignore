@@ -12,3 +12,4 @@ worker.py
 crawler/lib/
 Dockerfile
 *.pyc
+setup.py

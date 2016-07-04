@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /usr/src/app
 
-RUN ["python", "setup.py", "clean", "-a", "bdist_egg", "-d", "boom"]
+#RUN ["python", "setup.py", "clean", "-a", "bdist_egg", "-d", "boom"]
 RUN chmod +x /usr/src/app/deploy.sh
 RUN /usr/src/app/deploy.sh
 
