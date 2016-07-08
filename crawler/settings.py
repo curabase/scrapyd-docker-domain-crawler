@@ -66,8 +66,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'crawler.pipelines.PushToSolrPipeline': 300,
-    'crawler.pipelines.PushToDjangoPipeline': 310,
+    'crawler.pipelines.PushToRabbitMQPipeline': 320,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -101,4 +100,4 @@ FEED_STORAGES = {
 # affects deployment
 # https://github.com/scrapy/scrapy/issues/1646
 LOG_STDOUT = False
-LOG_LEVEL = os.getenv('DEBUG', True)
+LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')

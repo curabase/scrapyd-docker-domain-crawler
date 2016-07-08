@@ -1,5 +1,3 @@
-import scrapy
-
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
@@ -9,14 +7,30 @@ from urlparse import urlparse
 import lxml.etree
 import lxml.html
 
+import requests
+import logging
+
+import pika
+import os
+
 
 class DomainSpider(CrawlSpider):
     name = "domain_spider"
 
-    def __init__(self, url=None, batch_id=None, categories=['default'], allowed=None, denied=None, single_page=False, **kwargs):
+    def __init__(self,
+                 url=None,
+                 batch_id=None,
+                 categories=['default'],
+                 allowed=None,
+                 denied=None,
+                 single_page=False,
+                 scheduled_crawl_id=None,
+                 **kwargs):
 
         self.categories = categories
         self.batch_id = batch_id
+        self.scheduled_crawl_id = scheduled_crawl_id
+
         follow = True
 
         if allowed == '':
@@ -37,6 +51,10 @@ class DomainSpider(CrawlSpider):
         )
 
         super(DomainSpider, self).__init__(**kwargs)
+
+        self.rmq = pika.BlockingConnection(pika.ConnectionParameters(host=os.getenv('RABBITMQ_HOST', 'rabbitmq')))
+        self.channel = self.rmq.channel()
+        self.channel.queue_declare('page_publish', durable=True)
 
 
     def strip_html(self, body):
@@ -64,8 +82,20 @@ class DomainSpider(CrawlSpider):
 
         return i
 
-    # def closed(self, reason):
-    #     pass
-        # todo: push message onto azure queue (solrqueue)
-        # do in try/catch
-        # but will this fire after the upload is completed?
+    def closed(self, reason):
+
+        url = '{}/api/crawl_schedule/{}/'.format(os.getenv('DJANGO_HOST'), self.scheduled_crawl_id)
+        payload = {
+            'id': self.scheduled_crawl_id,
+            'status': 'Done'
+        }
+
+        try:
+            r = requests.put(url, json=payload)
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            logging.error(r.text)
+
+        # close the connection to rabbitmq
+        self.rmq.close()
+
