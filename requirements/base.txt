@@ -17,7 +17,7 @@ pyOpenSSL==16.0.0
 python-dateutil==2.5.3
 queuelib==1.4.2
 redis==2.10.5
-requests==2.10.0
+requests==2.20.0
 rq==0.6.0
 Scrapy==1.1.0
 scrapyd==1.1.0
