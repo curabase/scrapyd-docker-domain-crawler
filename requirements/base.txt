@@ -24,7 +24,7 @@ scrapyd==1.1.0
 scrapyd-client==1.0.1
 service-identity==16.0.0
 six==1.10.0
-Twisted==19.7.0
+Twisted==22.4.0
 Unidecode==0.4.19
 urllib3==1.26.5
 w3lib==1.14.2
